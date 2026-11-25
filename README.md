@@ -1,6 +1,9 @@
-# Escuela Politécnica Nacional - EPN
-# Escuela de Formación de Tecnólogos - ESFOT
-## Sistema Arena de Héroes - POO en Java  
+<div align="center">
+  <h1 style="border-bottom: none; margin-bottom: 0;">Escuela Politécnica Nacional - EPN</h1>
+  <h2 style="border-bottom: none; margin-top: 0; margin-bottom: 0;">Escuela de Formación de Tecnólogos - ESFOT</h2>
+  <h3 style="margin-top: 10px;">Sistema Arena de Héroes - POO en Java</h3>
+</div>
+
 > **Estudiante:** Melva Patricia Suarez C.  
 > **Asignatura:** Programación Orientada a Objetos  
 > **Lenguaje:** Java (JDK 17 o superior · probado en JDK 21)
@@ -30,11 +33,26 @@ simple y multinivel, encapsulamiento, sobrecarga, sobrescritura, polimorfismo,
   por ID y estadísticas por clase.
 - **Menú de consola** con 7 opciones (registrar, listar, buscar, atacar,
   recibir daño, estadísticas, salir).
----
-## 📁 Estructura del repositorio
 
+## 📁 Estructura del repositorio
 ```
 arena-heroes/
+├── images/
+│     ├── T01_nombre_vacio.png
+│     ├── T02_vida_saturada.png
+│     ├── T03_formula_guerrero.png
+│     ├── T04_mana_mago.png
+│     ├── T05_vida_no_negativa.png
+│     ├── T06_sobrecarga_defensa.png
+│     ├── T07_id_duplicado.png
+│     ├── T08_objetivo_inexistente.png
+│     ├── T09_polimorfismo.png
+│     ├── T10_arquero_elite.png
+│     ├── T11_nivel_invalido.png
+│     ├── T12_formula_arquero.png
+│     ├── T13_mago_sin_mana.png
+│     ├── T14_esta_vivo.png
+│     └── T15_vida_saturada_min.png
 ├── src/
 │   ├── Personaje.java       ← clase abstracta base
 │   ├── Guerrero.java        ← subclase
@@ -42,8 +60,8 @@ arena-heroes/
 │   ├── Arquero.java         ← subclase
 │   ├── ArqueroElite.java    ← herencia multinivel
 │   └── Juego.java           ← menú + ArrayList + HashMap
-├── Diagrama_arena_heroes.png
-├── .gitignore
+├── Diagrama_arena_heroes.png      
+├── src/
 └── README.md
 ```
 
@@ -126,12 +144,11 @@ classDiagram
     Juego o--  Personaje
     
 ```
-## 🧰 Requisitos
-
+## 🧰 Requisitos previos
 - **JDK 17 o superior** (`java -version` debe mostrar 17+).
 - Terminal (PowerShell, bash, zsh o CMD).
 - Opcional: IDE (IntelliJ IDEA, VS Code, Eclipse) o Git para clonar.
----
+
 ## ▶️ Cómo compilar y ejecutar
 ### Linux / macOS
 ```
@@ -150,20 +167,6 @@ javac -d out src\*.java
 java -cp out Juego
 ```
 
-### Ejecutar las pruebas
-
-```
-# Linux / macOS
-javac -d out src/*.java tests/PruebasArena.java
-java -cp out PruebasArena
-
-# Windows
-javac -d out src\*.java tests\PruebasArena.java
-java -cp out PruebasArena
-```
-
-Salida esperada: **`RESULTADO: 15/15 pruebas pasadas (0 fallidas)`**.
-
 | Opción | Descripción |
 |--------|-------------|
 | **1** | Registra un personaje eligiendo tipo (Guerrero / Mago / Arquero / Arquero Élite), ID, nombre, vida y nivel. |
@@ -173,7 +176,7 @@ Salida esperada: **`RESULTADO: 15/15 pruebas pasadas (0 fallidas)`**.
 | **5** | Aplica daño a un personaje, con o sin defensa (sobrecarga de `recibirDanio`). |
 | **6** | Muestra total, vivos, promedios de nivel y vida, y ataques por clase. |
 | **7** | Cierra el programa. |
----
+
 ## 📜 Reglas de negocio
 
 | Regla | Implementación |
@@ -195,7 +198,6 @@ Salida esperada: **`RESULTADO: 15/15 pruebas pasadas (0 fallidas)`**.
 | **Arquero** | `9 + 2 × nivel` | — |
 | **Arquero Élite** | `(9 + 2 × nivel) + 5` | Bonus de élite |
 ---
-## 🧪 Pruebas documentadas
 ## 🧪 Pruebas documentadas con evidencia
 
 Cada prueba se ejecutó por terminal con `java -cp out Juego`. A continuación
@@ -215,10 +217,13 @@ se muestra el caso, la secuencia de entradas, el resultado esperado y la
 | **Polimorfismo** | `ArrayList<Personaje>` invoca el `atacar()` real |
 | **Colecciones** | `ArrayList` (orden) + `HashMap` (búsqueda O(1) y estadísticas) |
 
-## 📷 Capturas de pantalla / Screenshots
-Cada prueba se ejecutó por terminal con `java -cp out Juego` o `IntelliJ IDEA`. A continuación
+## 🧪 Pruebas documentadas con evidencia
+
+Cada prueba se ejecutó por terminal con `java -cp out Juego`. A continuación
 se muestra el caso, la secuencia de entradas, el resultado esperado y la
 **captura de pantalla** que lo evidencia.
+
+### 📊 Cuadro resumen
 
 | # | Caso | Tipo | Resultado | Evidencia |
 |---|------|------|:---------:|:---------:|
