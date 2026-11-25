@@ -1,17 +1,18 @@
 # Escuela Politécnica Nacional - EPN
 # Escuela de Formación de Tecnólogos - ESFOT
-## Sistema Arena de Héroes - POO en Java
-> Estudiante: Melva Patricia Suarez C.  
-> Asignatura: Programación Orientada a Objetos  
-> Lenguaje: Java (JDK 21 o superior)
+## Sistema Arena de Héroes - POO en Java  
+> **Estudiante:** Melva Patricia Suarez C.  
+> **Asignatura:** Programación Orientada a Objetos  
+> **Lenguaje:** Java (JDK 17 o superior · probado en JDK 21)
 
+---
 # 🏟️ Arena de Héroes
 
 Videojuego de consola desarrollado en **Java 17+** como **deber integrador** de
 Programación Orientada a Objetos. El proyecto integra clase abstracta, herencia
 simple y multinivel, encapsulamiento, sobrecarga, sobrescritura, polimorfismo,
 `ArrayList`, `HashMap` y un menú interactivo por consola.
----
+
 ## 🚀 Características
 
 - **Clase abstracta** `Personaje` con método abstracto `atacar()` y método
@@ -35,13 +36,95 @@ simple y multinivel, encapsulamiento, sobrecarga, sobrescritura, polimorfismo,
 ```
 arena-heroes/
 ├── src/
-│   ├── Arquero.java
+│   ├── Personaje.java       ← clase abstracta base
+│   ├── Guerrero.java        ← subclase
+│   ├── Mago.java            ← subclase
+│   ├── Arquero.java         ← subclase
 │   ├── ArqueroElite.java    ← herencia multinivel
-│   ├── Guerrero.java
-│   ├── Mago.java
-│   └── Personaje.java       ← clase abstracta 
-├── Juego.java           ← menú + ArrayList + HashMap
+│   └── Juego.java           ← menú + ArrayList + HashMap
+├── Diagrama_arena_heroes.png
+├── .gitignore
 └── README.md
+```
+
+## 📊 Diagrama UML
+> **Imagen:** [Diagrama de clases](Diagrama_arena_heroes.png)
+
+```mermaid
+classDiagram
+    class Personaje {
+        <<abstract>>
+        -int id
+        -String nombre
+        -int vida
+        -int nivel
+        +Personaje(int id, String nombre, int vida, int nivel)
+        +getId() int
+        +setId(int id) void
+        +getNombre() String
+        +setNombre(String nombre) void
+        +getVida() int
+        +setVida(int vida) void
+        +getNivel() int
+        +setNivel(int nivel) void
+        +atacar()* int
+        +recibirDanio(int puntos) void
+        +recibirDanio(int puntos, int defensa) void
+        +estaVivo() boolean
+        +mostrarInformacion() String
+    }
+
+    class Guerrero {
+        +Guerrero(int id, String nombre, int vida, int nivel)
+        +atacar() int
+        +mostrarInformacion() String
+    }
+
+    class Mago {
+        -int mana
+        +Mago(int id, String nombre, int vida, int nivel)
+        +Mago(int id, String nombre, int vida, int nivel, int mana)
+        +getMana() int
+        +setMana(int mana) void
+        +atacar() int
+        +mostrarInformacion() String
+    }
+
+    class Arquero {
+        +Arquero(int id, String nombre, int vida, int nivel)
+        +atacar() int
+        +mostrarInformacion() String
+    }
+
+    class ArqueroElite {
+        +ArqueroElite(int id, String nombre, int vida, int nivel)
+        +atacar() int
+        +mostrarInformacion() String
+    }
+
+    class Juego {
+        -ArrayList~Personaje~ personajes$
+        -HashMap~Integer,Personaje~ porId$
+        -HashMap~String,Integer~ contadorAtaques$
+        -Scanner sc$
+        +main(String[] args)$ void
+        -mostrarMenu()$ void
+        -registrar()$ void
+        -listar()$ void
+        -buscar()$ void
+        -atacarMenu()$ void
+        -recibirDanioMenu()$ void
+        -estadisticas()$ void
+        -leerInt(String msg)$ int
+    }
+
+    Personaje <|-- Guerrero : hereda
+    Personaje <|-- Mago : hereda
+    Personaje <|-- Arquero : hereda
+    Arquero   <|-- ArqueroElite : hereda (multinivel)
+
+    Juego o--  Personaje
+    
 ```
 ## 🧰 Requisitos
 
@@ -113,25 +196,12 @@ Salida esperada: **`RESULTADO: 15/15 pruebas pasadas (0 fallidas)`**.
 | **Arquero Élite** | `(9 + 2 × nivel) + 5` | Bonus de élite |
 ---
 ## 🧪 Pruebas documentadas
+## 🧪 Pruebas documentadas con evidencia
 
-| # | Caso | Entrada | Esperado | Estado |
-|---|------|---------|----------|--------|
-| T1  | Nombre vacío | `new Guerrero(1, "  ", 50, 1)` | `IllegalArgumentException` |  |
-| T2  | Vida > 100 se satura | `vida = 150` | `vida == 100` |  |
-| T3  | Fórmula Guerrero | nivel 5 | `atacar() == 20` |  |
-| T4  | Consumo de maná | maná = 10, 2 ataques | `maná == 0` |  |
-| T5  | Vida nunca negativa | daño = 200 a vida 50 | `vida == 0` |  |
-| T6  | Sobrecarga con defensa | `recibirDanio(20, 15)` | `vida == 45` |  |
-| T7  | ID duplicado | ID ya existente | detectado |  |
-| T8  | Ataque a inexistente | ID = 999 | `null`, ataque cancelado |  |
-| T9  | Polimorfismo | `ArrayList<Personaje>` con 3 clases | cada uno usa su fórmula |  |
-| T10 | Herencia multinivel | `ArqueroElite` nivel 3 | `atacar() == 20` |  |
-| T11 | Nivel < 1 | `nivel = 0` | `IllegalArgumentException` |  |
-| T12 | Fórmula Arquero | nivel 4 | `atacar() == 17` |  |
-| T13 | Mago sin maná | maná = 3 | `atacar() == 0` |  |
-| T14 | `estaVivo()` | vida 1 → 0 | `true` → `false` |  |
-| T15 | `setVida(-10)` | vida negativa | `vida == 0` |  |
----
+Cada prueba se ejecutó por terminal con `java -cp out Juego`. A continuación
+se muestra el caso, la secuencia de entradas, el resultado esperado y la
+**captura de pantalla** que lo evidencia.
+
 ## 🧩 Conceptos de POO aplicados
 
 | Concepto | Dónde se evidencia |
@@ -145,6 +215,34 @@ Salida esperada: **`RESULTADO: 15/15 pruebas pasadas (0 fallidas)`**.
 | **Polimorfismo** | `ArrayList<Personaje>` invoca el `atacar()` real |
 | **Colecciones** | `ArrayList` (orden) + `HashMap` (búsqueda O(1) y estadísticas) |
 
+## 📷 Capturas de pantalla / Screenshots
+Cada prueba se ejecutó por terminal con `java -cp out Juego` o `IntelliJ IDEA`. A continuación
+se muestra el caso, la secuencia de entradas, el resultado esperado y la
+**captura de pantalla** que lo evidencia.
+
+| # | Caso | Tipo | Resultado | Evidencia |
+|---|------|------|:---------:|:---------:|
+| T1  | Nombre vacío | Validación | [ ] | [ ver](#t1) |
+| T2  | Vida > 100 se satura | Validación | [ ] | [ ver](#t2) |
+| T3  | Fórmula Guerrero | Sobrescritura | [ ] | [ ver](#t3) |
+| T4  | Consumo de maná | Regla de negocio | [ ] | [ver](#t4) |
+| T5  | Vida nunca negativa | Validación | [ ] | [ ver](#t5) |
+| T6  | Sobrecarga con defensa | Sobrecarga | [ ] | [ ver](#t6) |
+| T7  | ID duplicado | Regla con HashMap | [ ] | [ver](#t7) |
+| T8  | Ataque a inexistente | Regla de negocio | [ ] | [ ver](#t8) |
+| T9  | Polimorfismo | Polimorfismo | [ ] | [ ver](#t9) |
+| T10 | Herencia multinivel | Herencia | [ ] | [ ver](#t10) |
+| T11 | Nivel < 1 | Validación | [ ] | [ ver](#t11) |
+| T12 | Fórmula Arquero | Sobrescritura | [ ] | [ver](#t12) |
+| T13 | Mago sin maná | Regla de negocio | [ ] | [ ver](#t13) |
+| T14 | `estaVivo()` | Regla de negocio | [ ] | [ ver](#t14) |
+| T15 | `setVida(-10)` | Validación | [ ] | [ ver](#t15) |
+
 ---
 > ***Autora:** Melva Suarez*  
-> ***Link del repositorio:** [Arena Heroes]()*
+> ***Link del repositorio:** [Arena Heroes](https://github.com/MelvaSuarez29/arena-de-heroes.git)*  
+> El proyecto académico fue desarrollado con fines educativos como actividad de
+implementación de **clases abstractas, herencia, encapsulamiento,
+sobrecarga, sobrescritura, polimorfismo, `ArrayList`, `HashMap` y UML** en
+Java.
+
