@@ -7,10 +7,10 @@ public abstract class Personaje {
     private int nivel;
 
     public Personaje(int id, String nombre, int vida, int nivel) {
-        this.id = id;
-        this.nombre = nombre;
-        this.vida = vida;
-        this.nivel = nivel;
+        setId(id);
+        setNombre(nombre);
+        setVida(vida);
+        setNivel(nivel);
     }
 
     public int getId() {return id;}
@@ -41,6 +41,13 @@ public abstract class Personaje {
 
     public abstract int atacar();
 
+    public void recibirDanio(int puntos){
+        if(puntos < 0){
+            throw new IllegalArgumentException("El daño no puede ser un valor negatico");
+        }
+        setVida(this.getVida() - puntos);
+    }
+
     public void recibirDanio(int puntos, int defensa){
         if(puntos <0){
             throw new IllegalArgumentException("El valor del daño no puede ser negativo");
@@ -49,9 +56,11 @@ public abstract class Personaje {
         int efectivo = Math.max(0, puntos - defensa);
         setVida(this.vida - efectivo);
     }
+
     public boolean estaVivo(){
         return vida > 0;
     }
+
     public String mostrarInformacion(){
         return String.format("[%d] %s | Vida: %d/100 | Nivel: %d", id, nombre, vida, nivel);
     }

@@ -12,6 +12,6 @@ public class ArqueroElite extends Arquero {
 
     @Override
     public String mostrarInformacion() {
-        return super.mostrarInformacion() + "\n Clase: Elite";
+        return super.mostrarInformacion() + "\nTipo: Elite";
     }
 }
