@@ -8,7 +8,7 @@ public class Arquero extends Personaje{
 
     @Override
     public int atacar() {
-        return 9 + 2 * getVida();
+        return 9 + 2 * getNivel();
     }
 
     @Override

@@ -24,7 +24,8 @@ public abstract class Personaje {
     }
 
     public void setNombre(String nombre) {
-        if(nombre == null || nombre.trim().isEmpty()){throw new IllegalArgumentException("El nombre no puede estar vacío");}
+        if(nombre == null || nombre.trim().isEmpty()){
+            throw new IllegalArgumentException("El nombre no puede estar vacío");}
         this.nombre = nombre.trim();
     }
 
@@ -43,7 +44,7 @@ public abstract class Personaje {
 
     public void recibirDanio(int puntos){
         if(puntos < 0){
-            throw new IllegalArgumentException("El daño no puede ser un valor negatico");
+            throw new IllegalArgumentException("El daño no puede ser un valor negativo");
         }
         setVida(this.getVida() - puntos);
     }

@@ -25,7 +25,7 @@ public class Mago extends Personaje {
     @Override
     public int atacar() {
         if(mana < 5){
-            System.out.println(getNombre()+"no posee mana suficiente para atacar");
+            System.out.println(getNombre() + " no posee mana suficiente para atacar");
             return 0;
         }
         mana -= 5;

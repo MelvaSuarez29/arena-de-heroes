@@ -24,21 +24,21 @@ public class Juego {
             }
 
             switch (opcion) {
-                case 1:registrarPersonaje(); break;
-                case 2:listarPersonaje(); break;
+                case 1: registrarPersonaje(); break;
+                case 2: listarPersonaje(); break;
                 case 3: buscarPorID(); break;
                 case 4: atacar(); break;
-                case 5:recibirDanio();  break;
-                case 6:estadisticaJuego(); break;
-                default:  System.out.println("La opción ingreada no es válida"); break;
+                case 5: recibirDanio(); break;
+                case 6: estadisticaJuego(); break;
+                default: System.out.println("La opción ingresada no es válida"); break;
             }
         } while (true);
     }
 
     private static void mostrarMenu(){
-        System.out.println("\n================= HARENA DE HEROES ==================");
+        System.out.println("\n================= ARENA DE HEROES ==================");
         System.out.println("1. Registrar personaje");
-        System.out.println("2. Listar Personaje");
+        System.out.println("2. Listar personaje");
         System.out.println("3. Buscar por ID");
         System.out.println("4. Atacar");
         System.out.println("5. Recibir daño");
@@ -49,12 +49,10 @@ public class Juego {
     private static int leerEntero(String mensaje){
         while(true){
             try {
-                if(!mensaje.isEmpty()){
-                    System.out.print(mensaje);
-                    return Integer.parseInt(sc.nextLine().trim());
-                }
+                System.out.print(mensaje);
+                return Integer.parseInt(sc.nextLine().trim());
             }catch (NumberFormatException e){
-                System.out.println("Ingresar un número válida");
+                System.out.println("Ingresar un número válido");
             }
         }
     }
@@ -98,7 +96,7 @@ public class Juego {
 
     private static void listarPersonaje() {
         if (personajes.isEmpty()) {
-            System.out.println("No hay personajes regsitrados aun");
+            System.out.println("No hay personajes registrados aún");
             return;
         }
         for (Personaje p : personajes) {
@@ -126,11 +124,15 @@ public class Juego {
 
         if(idP1 == null || idP2 == null){
             System.out.println("No existe un personaje registrado con ese ID");
-            System.out.println("Ataque Cancelado");
+            System.out.println("Ataque cancelado");
             return;
         }
         if(!idP1.estaVivo()){
-            System.out.println("El atacante fue derrotado, No puede atacar");
+            System.out.println("El atacante fue derrotado, no puede atacar");
+            return;
+        }
+        if(!idP2.estaVivo()){
+            System.out.println("El objetivo ya fue derrotado");
             return;
         }
         int danio = idP1.atacar();
@@ -166,6 +168,7 @@ public class Juego {
             p.recibirDanio(danio);
         }else{
             System.out.println("El valor ingresado no es válido");
+            return;
         }
         System.out.println("Estado personaje: "+p.mostrarInformacion());
     }

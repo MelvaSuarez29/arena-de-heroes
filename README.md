@@ -8,9 +8,7 @@
 > **Asignatura:** Programación Orientada a Objetos  
 > **Lenguaje:** Java (JDK 17 o superior · probado en JDK 21)
 
----
 # 🏟️ Arena de Héroes
-
 Videojuego de consola desarrollado en **Java 17+** como **deber integrador** de
 Programación Orientada a Objetos. El proyecto integra clase abstracta, herencia
 simple y multinivel, encapsulamiento, sobrecarga, sobrescritura, polimorfismo,
@@ -37,31 +35,16 @@ simple y multinivel, encapsulamiento, sobrecarga, sobrescritura, polimorfismo,
 ## 📁 Estructura del repositorio
 ```
 arena-heroes/
-├── images/
-│     ├── T01_nombre_vacio.png
-│     ├── T02_vida_saturada.png
-│     ├── T03_formula_guerrero.png
-│     ├── T04_mana_mago.png
-│     ├── T05_vida_no_negativa.png
-│     ├── T06_sobrecarga_defensa.png
-│     ├── T07_id_duplicado.png
-│     ├── T08_objetivo_inexistente.png
-│     ├── T09_polimorfismo.png
-│     ├── T10_arquero_elite.png
-│     ├── T11_nivel_invalido.png
-│     ├── T12_formula_arquero.png
-│     ├── T13_mago_sin_mana.png
-│     ├── T14_esta_vivo.png
-│     └── T15_vida_saturada_min.png
+├── images/                      ← evidencias de pruebas (capturas)
 ├── src/
-│   ├── Personaje.java       ← clase abstracta base
-│   ├── Guerrero.java        ← subclase
-│   ├── Mago.java            ← subclase
-│   ├── Arquero.java         ← subclase
-│   ├── ArqueroElite.java    ← herencia multinivel
-│   └── Juego.java           ← menú + ArrayList + HashMap
-├── Diagrama_arena_heroes.png      
-├── src/
+│   ├── Juego.java               ← menú + ArrayList + HashMap
+│   └── heroes/
+│       ├── Personaje.java       ← clase abstracta base
+│       ├── Guerrero.java        ← subclase
+│       ├── Mago.java            ← subclase
+│       ├── Arquero.java         ← subclase
+│       └── ArqueroElite.java    ← herencia multinivel
+├── Diagrama_arena_heroes.png
 └── README.md
 ```
 
@@ -151,21 +134,23 @@ classDiagram
 
 ## ▶️ Cómo compilar y ejecutar
 ### Linux / macOS
-```
+```bash
 git clone <URL-del-repo>
 cd arena-heroes
-javac -d out src/*.java
+javac -d out src/heroes/*.java src/Juego.java
 java -cp out Juego
 ```
 
 ### Windows (PowerShell)
 
-```
+```powershell
 git clone <URL-del-repo>
 cd arena-heroes
-javac -d out src\*.java
+javac -d out src\heroes\*.java src\Juego.java
 java -cp out Juego
 ```
+
+## 📋 Menú de la aplicación
 
 | Opción | Descripción |
 |--------|-------------|
@@ -198,12 +183,6 @@ java -cp out Juego
 | **Arquero** | `9 + 2 × nivel` | — |
 | **Arquero Élite** | `(9 + 2 × nivel) + 5` | Bonus de élite |
 ---
-## 🧪 Pruebas documentadas con evidencia
-
-Cada prueba se ejecutó por terminal con `java -cp out Juego`. A continuación
-se muestra el caso, la secuencia de entradas, el resultado esperado y la
-**captura de pantalla** que lo evidencia.
-
 ## 🧩 Conceptos de POO aplicados
 
 | Concepto | Dónde se evidencia |
@@ -217,37 +196,31 @@ se muestra el caso, la secuencia de entradas, el resultado esperado y la
 | **Polimorfismo** | `ArrayList<Personaje>` invoca el `atacar()` real |
 | **Colecciones** | `ArrayList` (orden) + `HashMap` (búsqueda O(1) y estadísticas) |
 
-## 🧪 Pruebas documentadas con evidencia
+## 🧪 Pruebas documentadas
 
-Cada prueba se ejecutó por terminal con `java -cp out Juego`. A continuación
-se muestra el caso, la secuencia de entradas, el resultado esperado y la
-**captura de pantalla** que lo evidencia.
+Cada prueba se ejecutó por consola con `java -cp out Juego`. Las capturas de evidencia se almacenan en la carpeta `images/`.
 
-### 📊 Cuadro resumen
-
-| # | Caso | Tipo | Resultado | Evidencia |
-|---|------|------|:---------:|:---------:|
-| T1  | Nombre vacío | Validación | [ ] | [ ver](#t1) |
-| T2  | Vida > 100 se satura | Validación | [ ] | [ ver](#t2) |
-| T3  | Fórmula Guerrero | Sobrescritura | [ ] | [ ver](#t3) |
-| T4  | Consumo de maná | Regla de negocio | [ ] | [ver](#t4) |
-| T5  | Vida nunca negativa | Validación | [ ] | [ ver](#t5) |
-| T6  | Sobrecarga con defensa | Sobrecarga | [ ] | [ ver](#t6) |
-| T7  | ID duplicado | Regla con HashMap | [ ] | [ver](#t7) |
-| T8  | Ataque a inexistente | Regla de negocio | [ ] | [ ver](#t8) |
-| T9  | Polimorfismo | Polimorfismo | [ ] | [ ver](#t9) |
-| T10 | Herencia multinivel | Herencia | [ ] | [ ver](#t10) |
-| T11 | Nivel < 1 | Validación | [ ] | [ ver](#t11) |
-| T12 | Fórmula Arquero | Sobrescritura | [ ] | [ver](#t12) |
-| T13 | Mago sin maná | Regla de negocio | [ ] | [ ver](#t13) |
-| T14 | `estaVivo()` | Regla de negocio | [ ] | [ ver](#t14) |
-| T15 | `setVida(-10)` | Validación | [ ] | [ ver](#t15) |
+| # | Caso | Pasos / Entrada | Resultado esperado | Evidencia |
+|---|------|-----------------|--------------------|-----------|
+| T1 | Nombre vacío | Registrar personaje con nombre vacío | Se rechaza con error: "El nombre no puede estar vacío" | `images/T01_nombre_vacio.png` |
+| T2 | Vida > 100 se satura | Registrar personaje con vida 150 | La vida queda en 100 | `images/T02_vida_saturada.png` |
+| T3 | Fórmula Guerrero | Guerrero nivel 5 ataca | Daño = `10 + 2*5 = 20` | `images/T03_formula_guerrero.png` |
+| T4 | Consumo de maná | Mago ataca | Daño = `8 + 3*nivel` y maná disminuye en 5 | `images/T04_mana_mago.png` |
+| T5 | Vida nunca negativa | Aplicar daño mayor a la vida actual | Vida queda en 0, no negativa | `images/T05_vida_no_negativa.png` |
+| T6 | Sobrecarga con defensa | Opción recibir daño con defensa | Daño efectivo = `max(0, puntos - defensa)` | `images/T06_sobrecarga_defensa.png` |
+| T7 | ID duplicado | Registrar dos personajes con mismo ID | Se rechaza el segundo registro | `images/T07_id_duplicado.png` |
+| T8 | Ataque a inexistente | Atacar usando ID objetivo no registrado | Mensaje: no existe/ataque cancelado | `images/T08_objetivo_inexistente.png` |
+| T9 | Polimorfismo | Registrar Guerrero, Mago y Arquero; ejecutar ataques | Cada clase usa su propia fórmula de `atacar()` | `images/T09_polimorfismo.png` |
+| T10 | Herencia multinivel | ArqueroElite nivel 5 ataca | Daño = `(9 + 2*5) + 5 = 24` | `images/T10_arquero_elite.png` |
+| T11 | Nivel < 1 | Registrar personaje con nivel 0 | Se rechaza con error: "El nivel debe ser mayor a uno" | `images/T11_nivel_invalido.png` |
+| T12 | Fórmula Arquero | Arquero nivel 4 ataca | Daño = `9 + 2*4 = 17` | `images/T12_formula_arquero.png` |
+| T13 | Mago sin maná | Mago con maná insuficiente intenta atacar | Ataque = 0 y muestra mensaje de maná insuficiente | `images/T13_mago_sin_mana.png` |
+| T14 | `estaVivo()` / no atacar derrotado | Personaje con vida 0 intenta atacar | Se bloquea: atacante derrotado no puede atacar | `images/T14_esta_vivo.png` |
+| T15 | Vida saturada al mínimo | Aplicar daño con valor que deja vida negativa | `setVida` fuerza el mínimo a 0 | `images/T15_vida_saturada_min.png` |
 
 ---
 > ***Autora:** Melva Suarez*  
 > ***Link del repositorio:** [Arena Heroes](https://github.com/MelvaSuarez29/arena-de-heroes.git)*  
-> El proyecto académico fue desarrollado con fines educativos como actividad de
-implementación de **clases abstractas, herencia, encapsulamiento,
-sobrecarga, sobrescritura, polimorfismo, `ArrayList`, `HashMap` y UML** en
-Java.
+> El proyecto académico fue desarrollado con fines educativos como actividad de  implementación de 
+> **clases abstractas, herencia, encapsulamiento, sobrecarga, sobrescritura, polimorfismo, `ArrayList`, `HashMap` y UML** en Java.
 
